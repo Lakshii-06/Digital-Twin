@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Twin | Motor Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">◈ Twin<span>Monitor</span></div>
+        <p class="menu-label">WORKSPACE</p>
+        <div class="menu active">▦ &nbsp; Dashboard</div>
+        <div class="menu">◉ &nbsp; Machine Health</div>
+        <div class="menu">⌁ &nbsp; Sensor Analytics</div>
+        <div class="sidebar-bottom">DIGITAL TWIN PROJECT<br><small>Simulation Mode</small></div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">INDUSTRIAL MONITORING</p>
+                <h1>Digital Twin Dashboard</h1>
+                <p class="subtitle">Live virtual representation of a physical machine</p>
+            </div>
+            <div class="live-badge"><span class="pulse"></span> LIVE SIMULATION</div>
+        </header>
+
+        <section class="machine-panel">
+            <div>
+                <p class="eyebrow">CONNECTED MACHINE</p>
+                <h2>⚙ Electric Motor 01</h2>
+                <p class="muted">Asset ID: MOTOR-001 · Simulated sensor feed</p>
+            </div>
+            <div>
+                <p class="muted">CURRENT CONDITION</p>
+                <div id="status" class="status normal">NORMAL</div>
+            </div>
+        </section>
+
+        <section class="metrics">
+            <article class="metric-card">
+                <div class="metric-top"><span>Temperature</span><span>♨</span></div>
+                <div class="metric-value"><span id="temperature">--</span><small> °C</small></div>
+                <p class="muted">Motor thermal reading</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top"><span>Vibration</span><span>〰</span></div>
+                <div class="metric-value"><span id="vibration">--</span><small> mm/s</small></div>
+                <p class="muted">Vibration level</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top"><span>Rotational Speed</span><span>⟳</span></div>
+                <div class="metric-value"><span id="speed">--</span><small> RPM</small></div>
+                <p class="muted">Motor rotation speed</p>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <article class="panel chart-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Live Sensor Trends</h3>
+                        <p class="muted">Recent temperature readings</p>
+                    </div>
+                    <span class="chart-tag">TEMPERATURE</span>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="sensorChart"></canvas>
+                </div>
+            </article>
+
+            <article class="panel">
+                <h3>Machine Information</h3>
+                <div class="info-row"><span>Machine</span><strong>Electric Motor 01</strong></div>
+                <div class="info-row"><span>Data source</span><strong>Simulation</strong></div>
+                <div class="info-row"><span>Connection</span><strong class="connected">● Connected</strong></div>
+                <div class="info-row"><span>Last update</span><strong id="timestamp">Waiting...</strong></div>
+                <div class="info-row"><span>Refresh interval</span><strong>2 seconds</strong></div>
+            </article>
+        </section>
+
+        <section class="panel alert-panel">
+            <div>
+                <h3>Machine Health Alerts</h3>
+                <p class="muted">Latest condition based on configured thresholds</p>
+            </div>
+            <div id="alertMessage" class="alert-message">Waiting for sensor data...</div>
+        </section>
+
+        <footer>Digital Twin Prototype · Sensor readings are simulated, not real hardware measurements.</footer>
+    
+<!-- Machine Health Analysis -->
+<section class="panel">
+    <h2>Machine Health Analysis</h2>
+    <p>Average Temperature:
+        <strong id="avgTemperature">Loading...</strong>
+    </p>
+    <p>Average Vibration:
+        <strong id="avgVibration">Loading...</strong>
+    </p>
+    <p>Readings Analyzed:
+        <strong id="readingsAnalyzed">0</strong>
+    </p>
+    <p>Health Status:
+        <strong id="healthStatus">Loading...</strong>
+    </p>
+    <p id="healthMessage">Analyzing machine health...</p>
+    
+<div class="health-score-card">
+    <h3>Machine Health Score</h3>
+
+    <div class="health-score-track">
+        <div id="healthScoreBar" class="health-score-fill"></div>
+    </div>
+
+    <p>
+        <strong id="healthScore">--%</strong>
+    </p>
+    <p id="healthScoreLabel">Calculating health score...</p>
+</div>
+
+</section>
+
+<!-- Fault Risk Prediction -->
+<section class="panel">
+    <h2>Fault Risk Prediction</h2>
+    <p>Risk Level:
+        <strong id="faultRisk">Loading...</strong>
+    </p>
+    <p id="faultMessage">Checking sensor trends...</p>
+    
+<div class="fault-alert-box">
+    <h3>Machine Fault Alerts</h3>
+    <ul id="faultAlerts">
+        <li>Checking sensor readings...</li>
+    </ul>
+</div>
+
+</section>
+
+<!-- Historical Sensor Graph -->
+<section class="panel history-panel">
+    <h2>Historical Sensor Readings</h2>
+    <p>Temperature and vibration trends from SQLite</p>
+
+    <div style="height: 350px; position: relative;">
+        <canvas id="historyChart"></canvas>
+    </div>
+
+    <p id="historyMessage">Loading historical readings...</p>
+</section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
